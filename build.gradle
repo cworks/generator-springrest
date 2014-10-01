@@ -1,0 +1,70 @@
+buildscript {
+    repositories {
+        maven { url 'http://repo.spring.io/libs-snapshot' }
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.1.7.RELEASE')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'spring-boot'
+
+bootRepackage {
+  mainClass = 'net.cworks.app.Application'
+}
+
+springBoot {
+  mainClass = 'net.cworks.app.Application'
+}
+
+if(profile == 'prod')
+    apply from: 'profile_prod.gradle'
+else
+    apply from: 'profile_dev.gradle'
+
+group = 'net.cworks.app'
+version = '0.1-SNAPSHOT'
+description = ''
+
+jar {
+    baseName = 'generator-springrest'
+    version =  '0.1-SNAPSHOT'
+}
+
+repositories {
+    maven { url 'http://repo.spring.io/release' }
+    maven { url 'http://repo.spring.io/milestone' }
+    maven { url 'http://repo.spring.io/snapshot' }
+    maven { url 'http://repo.maven.apache.org/maven2' }
+}
+
+dependencies {
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-json-org', version: jackson_version
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hppc', version: jackson_version
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-joda', version: jackson_version
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate4', version: jackson_version
+    compile group: 'javax.inject', name: 'javax.inject', version: javax_inject_version
+    compile group: 'joda-time', name: 'joda-time', version: joda_time_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-actuator', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-loader-tools', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-logging', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: spring_boot_version
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: spring_boot_version
+    compile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: spring_boot_version) { exclude module: 'spring_boot-starter-tomcat'}
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-jetty', version: spring_boot_version
+    compile(group: 'org.springframework', name: 'spring-context-support', version: spring_context_support_version) { exclude(module: 'quartz') }
+    compile group: 'com.mangofactory', name: 'swagger-springmvc', version: swagger_springmvc_version
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: spring_boot_version
+    testCompile group: 'org.assertj', name: 'assertj-core', version: assertj_core_version
+    testCompile group: 'junit', name: 'junit', version: junit_version
+    testCompile group: 'org.mockito', name: 'mockito-core', version: mockito_version
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
