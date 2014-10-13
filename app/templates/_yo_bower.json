@@ -1,0 +1,7 @@
+{
+  "name": "<%= app.projectName %>",
+  "version": "<%= app.version %>",
+  "dependencies": {
+    "swagger-ui": "2.0.18"
+  }
+}

@@ -1,0 +1,7 @@
+/*
+ * Customize the look of swagger-ui here
+ */
+.swagger-section #header {
+  background-color: #fff;
+  padding: 14px;
+}
